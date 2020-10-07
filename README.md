@@ -14,12 +14,4 @@ For the practically inclined, think of codes here as a demonstrative cheatsheet.
 
 The only requirement is that some aspect of the language the code should be executed with is comprehensively represented.
 
-An example, here is Python's reserved words:
-```python
->>> import keyword
->>> print(keyword.kwlist)
-['False', 'None', 'True', 'and', 'as', 'assert', 'async', 'await', 'break', 'class', 'continue', 'def', 'del', 'elif', 'else', 'except', 'finally', 'for', 'from', 'global', 'if', 'import', 'in', 'is', 'lambda', 'nonlocal', 'not', 'or', 'pass', 'raise', 'return', 'try', 'while', 'with', 'yield']
-```
-Perhaps try to write a python script which uses all of these.
-And don't forget all their operator friends: `+ - * / % ** // = += -= *= /= %= //= **= &= |= ^= >>= <<= == != > < >= <= & | ^ ~ << >>`
-
+For an example, please see [my python sample](python/README.md)
