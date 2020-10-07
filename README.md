@@ -8,7 +8,7 @@ Source code contributed to this repository should be what ["The quick brown fox 
 
 Now imagine trying to use every letter and punctuation mark in as short of prose as possible&mdash;quite a poetic challenge. And similarly, what's the shortest grammatically valid prose that uses all English words? Such a problem is a bit nebulous, but luckily we have languages which are unambiguous where such a solution is likely to exist: those which are computed.
 
-In essence, code here should be thought of as such a "grand tour" of its respective language but with the fun of a challenge. Specifically, this may manifest as a script that uses all reserved words and functional operators in the language, every parsible symbol, every block structure&mdash;this list goes on.
+In essence, code here should be thought of as a "grand tour" of its respective language but with the fun of a challenge. Specifically, this may manifest as a script that uses all reserved words and functional operators in the language, every parsible symbol, every block structure&mdash;this list goes on.
 
 For the practically inclined, think of codes here as a demonstrative cheatsheet. Rather than a list of all functions and keywords, why not show their usage comprehensively in one piece of code? It may be as challenging as you please.
 
