@@ -1,0 +1,59 @@
+#!/usr/bin/env python3
+import unittest
+import keyword
+import operator
+import get_python_operator_symbols
+
+PANGRAM_FILE="pangram.py"
+
+python_lexemes = set()
+
+g="" # avoid size-change error during iteration
+for g in globals().keys() :
+	python_lexemes.add(g)
+
+for o in dir(operator):
+	python_lexemes.add(g)
+
+for kw in keyword.kwlist:
+	python_lexemes.add(kw)
+
+for bi in __builtins__.__dict__.keys():
+	python_lexemes.add(bi)
+
+for operator in get_python_operator_symbols.main():
+	python_lexemes.add(operator)
+
+python_lexemes = sorted(python_lexemes)
+
+
+
+file_lexemes = set()
+
+with open(PANGRAM_FILE, 'r') as pf:
+	for line in pf.readlines():
+		l = line.strip().partition('#')[0] # drop anything after a "#", i.e. ignore comments
+		l = l.split()
+		for t in l:
+			file_lexemes.add(t)
+
+file_lexemes = sorted(file_lexemes)
+
+# class TestStringMethods(unittest.TestCase):
+
+#     def test_upper(self):
+#         self.assertEqual('foo'.upper(), 'FOO')
+
+#     def test_isupper(self):
+#         self.assertTrue('FOO'.isupper())
+#         self.assertFalse('Foo'.isupper())
+
+#     def test_split(self):
+#         s = 'hello world'
+#         self.assertEqual(s.split(), ['hello', 'world'])
+#         # check that s.split fails when the separator is not a string
+#         with self.assertRaises(TypeError):
+#             s.split(2)
+
+# if __name__ == '__main__':
+#     unittest.main()

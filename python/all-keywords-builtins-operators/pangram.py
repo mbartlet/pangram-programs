@@ -1,7 +1,3 @@
->>> for e in __builtins__.__dict__:
-...     print(e)
-...
-
 __name__
 __doc__
 __package__
@@ -14,6 +10,7 @@ all
 any
 ascii
 bin
+breakpoint
 callable
 chr
 compile
@@ -93,7 +90,6 @@ ModuleNotFoundError
 OSError
 EnvironmentError
 IOError
-WindowsError
 EOFError
 RuntimeError
 RecursionError
@@ -119,8 +115,8 @@ OverflowError
 ZeroDivisionError
 SystemError
 ReferenceError
-BufferError
 MemoryError
+BufferError
 Warning
 UserWarning
 DeprecationWarning
@@ -134,9 +130,10 @@ BytesWarning
 ResourceWarning
 ConnectionError
 BlockingIOError
+BrokenPipeError
 ChildProcessError
-sdasd
 ConnectionAbortedError
+ConnectionRefusedError
 ConnectionResetError
 FileExistsError
 FileNotFoundError
@@ -153,10 +150,3 @@ copyright
 credits
 license
 help
-
->>> import keyword
->>> print(keyword.kwlist)
-['False', 'None', 'True', 'and', 'as', 'assert', 'async', 'await', 'break', 'class', 'continue', 'def', 'del', 'elif', 'else', 'except', 'finally', 'for', 'from', 'global', 'if', 'import', 'in', 'is', 'lambda', 'nonlocal', 'not', 'or', 'pass', 'raise', 'return', 'try', 'while', 'with', 'yield']
-
-+ - * / % ** // = += -= *= /= %= //= **= &= |= ^= >>= <<= == != > < >= <= & | ^ ~ << >>
-
