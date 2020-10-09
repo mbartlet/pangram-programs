@@ -51,7 +51,7 @@ CamelCaseRegex = re.compile(r'[A-Z][a-z]+[A-Z]*[a-z]*')
 
 tokenize_dir = " ".join(dir(tokenize))
 
-token_regex_strings = [getattr(tokenize, t) for t in CamelCaseRegex.findall(tokenize_dir) ]
+token_regex_strings = { t : getattr(tokenize, t) for t in CamelCaseRegex.findall(tokenize_dir) }
 
 token_types =  set(tok_name.values())
 
@@ -77,7 +77,7 @@ pangram_body = quote_string_regex.sub('', pangram_body)
 pangram_body = apostrophe_string_regex.sub('', pangram_body)
 
 
-for line in pangram_body:
+for line in pangram_body.split():
 	l = line.strip().partition('#')[0] # drop anything after a "#", i.e. ignore comments
 	l = l.split()
 	for t in l:
@@ -101,9 +101,9 @@ class TestPangramAuthenticity(unittest.TestCase):
 	def test_token_regex_machines_all_find_matches(self):
 		global token_regex_strings
 		global pangram_body
-		for tr in token_regex_strings:
-			self.assertRegex(pangram_body, tr)
-			
+		for regex_name, regex in token_regex_strings.items():
+			self.assertRegex(pangram_body, regex, msg=f"\n\t{regex_name}::::{regex} did not produce a match.")
+
 
 	def test_all_tokens_are_parsed_at_least_once(self):
 		global pangram_tokens
@@ -112,46 +112,3 @@ class TestPangramAuthenticity(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
-
-"""
-assertAlmostEqual
-assertAlmostEquals
-assertCountEqual
-assertDictContainsSubset
-assertDictEqual
-assertEqual
-assertEquals
-assertFalse
-assertGreater
-assertGreaterEqual
-assertIn
-assertIs
-assertIsInstance
-assertIsNone
-assertIsNot
-assertIsNotNone
-assertLess
-assertLessEqual
-assertListEqual
-assertLogs
-assertMultiLineEqual
-assertNotAlmostEqual
-assertNotAlmostEquals
-assertNotEqual
-assertNotEquals
-assertNotIn
-assertNotIsInstance
-assertNotRegex
-assertNotRegexpMatches
-assertRaises
-assertRaisesRegex
-assertRaisesRegexp
-assertRegex
-assertRegexpMatches
-assertSequenceEqual
-assertSetEqual
-assertTrue
-assertTupleEqual
-assertWarns
-assertWarnsRegex
-"""

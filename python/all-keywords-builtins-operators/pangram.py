@@ -1,17 +1,88 @@
-a = (a := 1) & a - a + a << a >> a * a ** a // a % a == a < a > a <= a >= a
+#!/usr/bin/env python3
+
+try:
+	a = (a := 0b1) & a - a + a << a >> a * a ** a // a % a == a < a > a <= a >= a | a
+	a != a
+	a %= a
+	a &= a
+	a **= a
+	a *= a
+	a += a
+	a , a
+	a -= a
+	a //= a
+	a >>= a
+	a /= a
+	a <<= a
+	a |= a
+	a = "str"
+except (
+	ArithmeticError,
+	AssertionError,
+	AttributeError,
+	BlockingIOError,
+	BrokenPipeError,
+	BufferError,
+	ChildProcessError,
+	ConnectionAbortedError,
+	ConnectionError,
+	ConnectionRefusedError,
+	ConnectionResetError,
+	EnvironmentError,
+	EOFError,
+	Exception
+	FileExistsError,
+	FileNotFoundError,
+	FloatingPointError,
+	ImportError,
+	IndentationError,
+	IndexError,
+	InterruptedError,
+	IOError,
+	IsADirectoryError,
+	KeyError,
+	LookupError,
+	MemoryError,
+	ModuleNotFoundError,
+	NameError,
+	NotADirectoryError,
+	NotImplemented,
+	NotImplementedError,
+	OSError,
+	OverflowError,
+	PermissionError,
+	ProcessLookupError,
+	RecursionError,
+	ReferenceError,
+	RuntimeError,
+	SyntaxError,
+	SystemError,
+	TabError,
+	TimeoutError,
+	TypeError,
+	UnboundLocalError,
+	UnicodeDecodeError,
+	UnicodeEncodeError,
+	UnicodeError,
+	UnicodeTranslateError,
+	ValueError,
+	ZeroDivisionError,
+) as e:
+	print(e)
+
 """
-!=
-%=
-&=
-**=
-*=
-+=
-,
--=
-//=
-/=
-<<=
->>=
+
+
+
+
+
+
+
+
+
+
+
+
 
 @
 @=
