@@ -2,58 +2,156 @@
 import unittest
 import keyword
 import operator
-import get_python_operator_symbols
+import re
+import tokenize
 
 PANGRAM_FILE="pangram.py"
 
+
+# Being construting a list of all unique and valid Python source lexemes in string form
 python_lexemes = set()
 
+# Get global variables, typically standard dunders
 g="" # avoid size-change error during iteration
 for g in globals().keys() :
 	python_lexemes.add(g)
 
-for o in dir(operator):
-	python_lexemes.add(g)
-
+# Get keywords, i.e. reserved words
 for kw in keyword.kwlist:
 	python_lexemes.add(kw)
 
+# Get builtin function names like "len" and "sorted"
 for bi in __builtins__.__dict__.keys():
 	python_lexemes.add(bi)
 
-for operator in get_python_operator_symbols.main():
-	python_lexemes.add(operator)
+# Get all operator text symbols, such as |=, ~, >>= etc.
+operator_function_regex = re.compile(r"Same as (.+)\.")
+non_word_regex = re.compile('[^\W\s]')
 
-python_lexemes = sorted(python_lexemes)
+for name, val in operator.__dict__.items():
+	if callable(val):
+		try:
+			operator_string = non_word_regex.sub('', operator_function_regex.findall(val.__doc__)[0] )
+			for op in operator_string.split():
+				python_lexemes.add(op)
+		except:
+			pass
+
+# Symbols not in operator module :)
+python_lexemes.add(":=") 
+python_lexemes.add("'") 
+python_lexemes.add('"') 
+python_lexemes.add('"""') 
 
 
+# Also satisfy all tokenizer cases (this will capture things like hex-numbers, bin-numbers, 
+# and string prefixes like f,b,r, etc.)
+from token import tok_name
+CamelCaseRegex = re.compile(r'[A-Z][a-z]+[A-Z]*[a-z]*')
 
-file_lexemes = set()
+tokenize_dir = " ".join(dir(tokenize))
+
+token_regex_strings = [getattr(tokenize, t) for t in CamelCaseRegex.findall(tokenize_dir) ]
+
+token_types =  set(tok_name.values())
+
+pangram_tokens = set()
+with open(PANGRAM_FILE, 'r') as pf:
+	for token in tokenize.generate_tokens(pf.readline):
+		pangram_tokens.add(tok_name[token.type] )
+
+####################################################################################################
+
+# Get the lexemes from the file for evaluation of exhaustiveness
+
+pangram_lexemes = set()
+
+quote_string_regex = re.compile(r"\"(\"\")?[^\"]*(\"\")?\"", flags=re.MULTILINE)
+apostrophe_string_regex = re.compile(r"'('')?[^']*('')?'", flags=re.MULTILINE)
 
 with open(PANGRAM_FILE, 'r') as pf:
-	for line in pf.readlines():
-		l = line.strip().partition('#')[0] # drop anything after a "#", i.e. ignore comments
-		l = l.split()
-		for t in l:
-			file_lexemes.add(t)
+	pangram_body = pf.read()
 
-file_lexemes = sorted(file_lexemes)
+# Contents of strings do not count towards the goal :)
+pangram_body = quote_string_regex.sub('', pangram_body)
+pangram_body = apostrophe_string_regex.sub('', pangram_body)
 
-# class TestStringMethods(unittest.TestCase):
 
-#     def test_upper(self):
-#         self.assertEqual('foo'.upper(), 'FOO')
+for line in pangram_body:
+	l = line.strip().partition('#')[0] # drop anything after a "#", i.e. ignore comments
+	l = l.split()
+	for t in l:
+		pangram_lexemes.add(t)
 
-#     def test_isupper(self):
-#         self.assertTrue('FOO'.isupper())
-#         self.assertFalse('Foo'.isupper())
+####################################################################################################
 
-#     def test_split(self):
-#         s = 'hello world'
-#         self.assertEqual(s.split(), ['hello', 'world'])
-#         # check that s.split fails when the separator is not a string
-#         with self.assertRaises(TypeError):
-#             s.split(2)
+import unittest
 
-# if __name__ == '__main__':
-#     unittest.main()
+class TestPangramAuthenticity(unittest.TestCase):
+
+	def assertSetComplete(self, truth, sample):
+		self.assertSetEqual(truth, truth.intersection(sample))
+
+	def test_pangram_has_all_python_lexemes(self):
+		global pangram_lexemes
+		global python_lexemes
+		self.assertSetComplete(python_lexemes, pangram_lexemes)
+
+
+	def test_token_regex_machines_all_find_matches(self):
+		global token_regex_strings
+		global pangram_body
+		for tr in token_regex_strings:
+			self.assertRegex(pangram_body, tr)
+			
+
+	def test_all_tokens_are_parsed_at_least_once(self):
+		global pangram_tokens
+		global token_types
+		self.assertSetComplete(token_types, pangram_tokens)
+
+if __name__ == '__main__':
+    unittest.main()
+
+"""
+assertAlmostEqual
+assertAlmostEquals
+assertCountEqual
+assertDictContainsSubset
+assertDictEqual
+assertEqual
+assertEquals
+assertFalse
+assertGreater
+assertGreaterEqual
+assertIn
+assertIs
+assertIsInstance
+assertIsNone
+assertIsNot
+assertIsNotNone
+assertLess
+assertLessEqual
+assertListEqual
+assertLogs
+assertMultiLineEqual
+assertNotAlmostEqual
+assertNotAlmostEquals
+assertNotEqual
+assertNotEquals
+assertNotIn
+assertNotIsInstance
+assertNotRegex
+assertNotRegexpMatches
+assertRaises
+assertRaisesRegex
+assertRaisesRegexp
+assertRegex
+assertRegexpMatches
+assertSequenceEqual
+assertSetEqual
+assertTrue
+assertTupleEqual
+assertWarns
+assertWarnsRegex
+"""
