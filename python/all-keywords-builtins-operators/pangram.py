@@ -1,74 +1,76 @@
 #!/usr/bin/env python3
 
 try:
-	a = (a := 0b1) & a - a + a << a >> a * a ** a // a % a == a < a > a <= a >= a | a
-	a != a
-	a %= a
+	# a = (a := round(0x10,0b100)) & a - a + a << a >> a * a ** a // a % a == a < a > a <= a >= a
+	a = (a := 100) & a - a + a << a >> a * a ** a // a % a < a > a <= a >= a | a
+	assert a==a 
+	a != a,
+	a %= 0b1
 	a &= a
 	a **= a
 	a *= a
 	a += a
-	a , a
 	a -= a
-	a //= a
+	a //= 0x1
 	a >>= a
-	a /= a
 	a <<= a
 	a |= a
+	a /= 10e10
 	a = "str"
 except (
-	ArithmeticError,
-	AssertionError,
-	AttributeError,
-	BlockingIOError,
-	BrokenPipeError,
-	BufferError,
-	ChildProcessError,
-	ConnectionAbortedError,
-	ConnectionError,
-	ConnectionRefusedError,
-	ConnectionResetError,
-	EnvironmentError,
-	EOFError,
-	Exception
-	FileExistsError,
-	FileNotFoundError,
-	FloatingPointError,
-	ImportError,
-	IndentationError,
-	IndexError,
-	InterruptedError,
-	IOError,
-	IsADirectoryError,
-	KeyError,
-	LookupError,
-	MemoryError,
-	ModuleNotFoundError,
-	NameError,
-	NotADirectoryError,
-	NotImplemented,
-	NotImplementedError,
-	OSError,
-	OverflowError,
-	PermissionError,
-	ProcessLookupError,
-	RecursionError,
-	ReferenceError,
-	RuntimeError,
-	SyntaxError,
-	SystemError,
-	TabError,
-	TimeoutError,
-	TypeError,
-	UnboundLocalError,
-	UnicodeDecodeError,
-	UnicodeEncodeError,
-	UnicodeError,
-	UnicodeTranslateError,
-	ValueError,
-	ZeroDivisionError,
-) as e:
+  SyntaxError,
+  ArithmeticError,
+  AssertionError,
+  AttributeError,
+  BlockingIOError,
+  BrokenPipeError,
+  BufferError,
+  ChildProcessError,
+  ConnectionAbortedError,
+  ConnectionAbortedError,
+  ConnectionError,
+  ConnectionRefusedError,
+  ConnectionResetError,
+  EnvironmentError,
+  EOFError,
+  Exception,
+  FileExistsError,
+  FileNotFoundError,
+  FloatingPointError,
+  ImportError,
+  IndentationError,
+  IndexError,
+  InterruptedError,
+  IOError,
+  IsADirectoryError,
+  KeyError,
+  LookupError,
+  MemoryError,
+  ModuleNotFoundError,
+  NameError,
+  NotADirectoryError,
+  NotImplementedError,
+  OSError,
+  OverflowError,
+  PermissionError,
+  ProcessLookupError,
+  RecursionError,
+  ReferenceError,
+  RuntimeError,
+  SystemError,
+  TabError,
+  TimeoutError,
+  TypeError,
+  UnboundLocalError,
+  UnicodeDecodeError,
+  UnicodeEncodeError,
+  UnicodeError,
+  UnicodeTranslateError,
+  ValueError,
+  ZeroDivisionError) as e:
 	print(e)
+  
+  # RuntimeWarning, # BytesWarning, # DeprecationWarning, # FutureWarning, # ImportWarning, # PendingDeprecationWarning, # ResourceWarning, # RuntimeWarning, # SyntaxWarning, # UnicodeWarning, # UserWarning, # Warning, # SystemExit , NotImplemented,) as e:
 
 """
 
@@ -93,13 +95,11 @@ BaseException
 BlockingIOError
 BrokenPipeError
 BufferError
-BytesWarning
 ChildProcessError
 ConnectionAbortedError
 ConnectionError
 ConnectionRefusedError
 ConnectionResetError
-DeprecationWarning
 EOFError
 Ellipsis
 EnvironmentError
@@ -108,11 +108,9 @@ False
 FileExistsError
 FileNotFoundError
 FloatingPointError
-FutureWarning
 GeneratorExit
 IOError
 ImportError
-ImportWarning
 IndentationError
 IndexError
 InterruptedError
@@ -130,18 +128,14 @@ NotImplementedError
 OSError
 OverflowError
 PANGRAM_FILE
-PendingDeprecationWarning
 PermissionError
 ProcessLookupError
 RecursionError
 ReferenceError
-ResourceWarning
 RuntimeError
-RuntimeWarning
 StopAsyncIteration
 StopIteration
 SyntaxError
-SyntaxWarning
 SystemError
 SystemExit
 TabError
@@ -153,10 +147,7 @@ UnicodeDecodeError
 UnicodeEncodeError
 UnicodeError
 UnicodeTranslateError
-UnicodeWarning
-UserWarning
 ValueError
-Warning
 ZeroDivisionError
 []
 ^
