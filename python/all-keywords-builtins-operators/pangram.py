@@ -6,7 +6,7 @@ try:
 except Exception as e:
 	print(e)
 
-string_prefixes = [Rb'string', br"""string""", Fr'''string''', f"string", U"string", b"string", rB"string", BR"string", bR"string", fr"string", r"string", RB"string", RF"string", R"string", FR"string", Rf"string", u"string", rb"string", F"string", Br"string", rf"string", fR"string", B"string", rF"string", ] 
+string_prefixes = [Rb'', br"""""", Fr'''''', f"", U"", b"", rB"", BR"", bR"", fr"", r"", RB"", RF"", R"", FR"", Rf"", u"", rb"", F"", Br"", rf"", fR"", B"", rF"", ] 
 
 a = (a := 100) & a - a + a << a >> a * a ** a // a % a < a > a <= a >= a | a
 assert a==a 
@@ -22,7 +22,6 @@ a >>= a
 a <<= a
 a |= a+0j
 a /= 10e10
-a = "str"
 
 if __name__ == "__main__":
 	print("Execed!")
