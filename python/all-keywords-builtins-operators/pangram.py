@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 from random import randint
 try:
-	errors=[SyntaxError, ArithmeticError, AssertionError, AttributeError, BlockingIOError, BrokenPipeError, BufferError, ChildProcessError, ConnectionAbortedError, ConnectionAbortedError, ConnectionError, ConnectionRefusedError, ConnectionResetError, EnvironmentError, EOFError, Exception, FileExistsError, FileNotFoundError, FloatingPointError, ImportError, IndentationError, IndexError, InterruptedError, IOError, IsADirectoryError, KeyError, LookupError, MemoryError, ModuleNotFoundError, NameError, NotADirectoryError, NotImplementedError, OSError, OverflowError, PermissionError, ProcessLookupError, RecursionError, ReferenceError, RuntimeError, SystemError, TabError, TimeoutError, TypeError, UnboundLocalError, UnicodeDecodeError, UnicodeEncodeError, UnicodeError, UnicodeTranslateError, ValueError, ZeroDivisionError]
+	errors=[SyntaxError, ArithmeticError, AssertionError, AttributeError, BlockingIOError, BrokenPipeError, BufferError, ChildProcessError, ConnectionAbortedError, ConnectionAbortedError, ConnectionError, ConnectionRefusedError, ConnectionResetError, EnvironmentError, EOFError, Exception, FileExistsError, FileNotFoundError, FloatingPointError, ImportError, IndentationError, IndexError, InterruptedError, IOError, IsADirectoryError, KeyError, LookupError, MemoryError, ModuleNotFoundError, NameError, NotADirectoryError, NotImplementedError, OSError, OverflowError, PermissionError, ProcessLookupError, RecursionError, ReferenceError, RuntimeError, SystemError, TabError, TimeoutError, TypeError, UnboundLocalError, UnicodeDecodeError, UnicodeEncodeError, UnicodeError, UnicodeTranslateError, ValueError, ZeroDivisionError, KeyboardInterrupt]
 	raise errors[randint(0,len(errors))]
 except Exception as e:
 	print(e)
@@ -14,14 +14,15 @@ a != a,
 a %= 0b1
 a &= a
 a **= 0o1
-a *= 3.0
-a += a
-a -= a
+a *= a
+a |= a
 a //= 0x1
 a >>= a
 a <<= a
-a |= a+0j
 a /= 10e10
+a += 0.0
+a -= a+0j
+a = divmod(a.real,2345678) + tuple([])
 
 if __name__ == "__main__":
 	print("Execed!")
