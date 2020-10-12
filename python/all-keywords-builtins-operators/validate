@@ -7,9 +7,10 @@ import tokenize
 
 PANGRAM_FILE="pangram.py"
 
+
 ####################################################################################################
 
-# Being construting a list of all unique and valid Python source lexemes in string form
+# Being constructing a list of all unique and valid Python source lexemes in string form
 
 python_lexemes = set()
 
@@ -57,6 +58,7 @@ with open(PANGRAM_FILE, 'r') as pf:
 	for token in tokenize.generate_tokens(pf.readline):
 		pangram_tokens.add(tok_name[token.type] )
 
+
 ####################################################################################################
 
 # Get the lexemes from the file for evaluation of exhaustiveness
@@ -70,8 +72,8 @@ with open(PANGRAM_FILE, 'r') as pf:
 	pangram_raw_body = pf.read()
 
 # Contents of strings do not count towards the goal :)
-pangram_body = quote_string_regex.sub('', pangram_raw_body)
-pangram_body = apostrophe_string_regex.sub('', pangram_body)
+pangram_body = quote_string_regex.sub('""', pangram_raw_body)
+pangram_body = apostrophe_string_regex.sub("''", pangram_body)
 
 
 for line in pangram_body.split():
@@ -80,19 +82,72 @@ for line in pangram_body.split():
 	for t in l:
 		pangram_lexemes.add(t)
 
+
+
 ####################################################################################################
 
+# Run test suite to validate authenticity of pangram
+
 import unittest
+import trace
+import sys
+import runpy
+import os
+from io import StringIO  # Python 3
+
+
+stdout_streams={}
+stderr_streams={}
+
+# Standard lib modules don't seem to expose a better API for capturing outputs to string
+def capture_descriptor_output(f):
+	def pipe_descriptor_to_stream_and_return(*args):
+		global stdout_streams
+		global stderr_streams 
+		temp_out = StringIO() 
+		temp_err = StringIO() 
+		sys.stdout = temp_out 
+		sys.stderr = temp_err 
+		f(*args)
+		sys.stdout = sys.__stdout__  
+		sys.stderr = sys.__stderr__  
+		stdout_streams[f.__name__] = temp_out.getvalue()
+		stderr_streams[f.__name__] = temp_err.getvalue()
+	return pipe_descriptor_to_stream_and_return
+
+
 
 class TestPangramAuthenticity(unittest.TestCase):
-
+	
+	
 	def assertSetComplete(self, truth, sample):
 		self.assertSetEqual(truth, truth.intersection(sample))
 
-	def test_pangram_runs_successfully(self):
+
+	@capture_descriptor_output
+	def test_pangram_runs_successfully(self): 
 		global pangram_body
-		print(eval(pangram_raw_body))
-		exit(0)
+		try:
+
+			module_name = PANGRAM_FILE.partition('.py')[0]
+			mod_name, mod_spec, code = runpy._get_module_details(module_name)
+			sys.argv = [code.co_filename]
+			globs = {
+					'__name__': '__main__',
+					'__file__': code.co_filename,
+					'__package__': mod_spec.parent,
+					'__loader__': mod_spec.loader,
+					'__spec__': mod_spec,
+					'__cached__': None,
+			}
+			tracer = trace.Trace(ignoredirs=[sys.prefix, sys.exec_prefix], trace=1, count=1)
+			code = compile(pangram_raw_body, PANGRAM_FILE, 'exec')
+			tracer.runctx(code, globs,globs)
+			tracer.results().write_results(show_missing=True, summary=False, coverdir='/dev/null')
+
+		except Exception:
+				self.fail("Pangram did not successfully execute")
+
 
 	def test_pangram_has_all_python_lexemes(self):
 		global pangram_body
@@ -114,5 +169,73 @@ class TestPangramAuthenticity(unittest.TestCase):
 		global token_types
 		self.assertSetComplete(token_types, pangram_tokens)
 
+
+
+tests = ['assertAlmostEqual',
+				 'assertAlmostEquals',
+				 'assertCountEqual',
+				 'assertDictContainsSubset',
+				 'assertDictEqual',
+				 'assertEqual',
+				 'assertEquals',
+				 'assertFalse',
+				 'assertGreater',
+				 'assertGreaterEqual',
+				 'assertIn',
+				 'assertIs',
+				 'assertIsInstance',
+				 'assertIsNone',
+				 'assertIsNot',
+				 'assertIsNotNone',
+				 'assertLess',
+				 'assertLessEqual',
+				 'assertListEqual',
+				 'assertLogs',
+				 'assertMultiLineEqual',
+				 'assertNotAlmostEqual',
+				 'assertNotAlmostEquals',
+				 'assertNotEqual',
+				 'assertNotEquals',
+				 'assertNotIn',
+				 'assertNotIsInstance',
+				 'assertNotRegex',
+				 'assertNotRegexpMatches',
+				 'assertRaises',
+				 'assertRaisesRegex',
+				 'assertRaisesRegexp',
+				 'assertRegex',
+				 'assertRegexpMatches',
+				 'assertSequenceEqual',
+				 'assertSetComplete',
+				 'assertSetEqual',
+				 'assertTrue',
+				 'assertTupleEqual',
+				 'assertWarns',
+				 'assertWarnsRegex',
+				 'assert_'
+					]
+
+
+def main():
+	global stdout_streams
+	global stderr_streams 
+	temp_out = StringIO() 
+	temp_err = StringIO() 
+	sys.stdout = temp_out 
+	sys.stderr = temp_err 
+
+	# unittest.main()  # this calls sys.exit() which is pretty lame, workaround:
+	unittest.TextTestRunner().run(unittest.TestLoader().loadTestsFromTestCase(TestPangramAuthenticity))
+
+
+	sys.stdout = sys.__stdout__  
+	sys.stderr = sys.__stderr__  
+	stdout_streams['main'] = temp_out.getvalue()
+	stderr_streams['main'] = temp_err.getvalue()
+	for k,v in stderr_streams.items():
+		print(f"{k} = {v}")
+	breakpoint()
+
+
 if __name__ == '__main__':
-    unittest.main()
+	main()

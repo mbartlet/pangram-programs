@@ -1,76 +1,33 @@
 #!/usr/bin/env python3
-
+from random import randint
 try:
-	# a = (a := round(0x10,0b100)) & a - a + a << a >> a * a ** a // a % a == a < a > a <= a >= a
-	a = (a := 100) & a - a + a << a >> a * a ** a // a % a < a > a <= a >= a | a
-	assert a==a 
-	a != a,
-	a %= 0b1
-	a &= a
-	a **= a
-	a *= a
-	a += a
-	a -= a
-	a //= 0x1
-	a >>= a
-	a <<= a
-	a |= a
-	a /= 10e10
-	a = "str"
-except (
-  SyntaxError,
-  ArithmeticError,
-  AssertionError,
-  AttributeError,
-  BlockingIOError,
-  BrokenPipeError,
-  BufferError,
-  ChildProcessError,
-  ConnectionAbortedError,
-  ConnectionAbortedError,
-  ConnectionError,
-  ConnectionRefusedError,
-  ConnectionResetError,
-  EnvironmentError,
-  EOFError,
-  Exception,
-  FileExistsError,
-  FileNotFoundError,
-  FloatingPointError,
-  ImportError,
-  IndentationError,
-  IndexError,
-  InterruptedError,
-  IOError,
-  IsADirectoryError,
-  KeyError,
-  LookupError,
-  MemoryError,
-  ModuleNotFoundError,
-  NameError,
-  NotADirectoryError,
-  NotImplementedError,
-  OSError,
-  OverflowError,
-  PermissionError,
-  ProcessLookupError,
-  RecursionError,
-  ReferenceError,
-  RuntimeError,
-  SystemError,
-  TabError,
-  TimeoutError,
-  TypeError,
-  UnboundLocalError,
-  UnicodeDecodeError,
-  UnicodeEncodeError,
-  UnicodeError,
-  UnicodeTranslateError,
-  ValueError,
-  ZeroDivisionError) as e:
+	errors=[SyntaxError, ArithmeticError, AssertionError, AttributeError, BlockingIOError, BrokenPipeError, BufferError, ChildProcessError, ConnectionAbortedError, ConnectionAbortedError, ConnectionError, ConnectionRefusedError, ConnectionResetError, EnvironmentError, EOFError, Exception, FileExistsError, FileNotFoundError, FloatingPointError, ImportError, IndentationError, IndexError, InterruptedError, IOError, IsADirectoryError, KeyError, LookupError, MemoryError, ModuleNotFoundError, NameError, NotADirectoryError, NotImplementedError, OSError, OverflowError, PermissionError, ProcessLookupError, RecursionError, ReferenceError, RuntimeError, SystemError, TabError, TimeoutError, TypeError, UnboundLocalError, UnicodeDecodeError, UnicodeEncodeError, UnicodeError, UnicodeTranslateError, ValueError, ZeroDivisionError]
+	raise errors[randint(0,len(errors))]
+except Exception as e:
 	print(e)
-  
-  # RuntimeWarning, # BytesWarning, # DeprecationWarning, # FutureWarning, # ImportWarning, # PendingDeprecationWarning, # ResourceWarning, # RuntimeWarning, # SyntaxWarning, # UnicodeWarning, # UserWarning, # Warning, # SystemExit , NotImplemented,) as e:
+
+string_prefixes = [Rb'string', br"""string""", Fr'''string''', f"string", U"string", b"string", rB"string", BR"string", bR"string", fr"string", r"string", RB"string", RF"string", R"string", FR"string", Rf"string", u"string", rb"string", F"string", Br"string", rf"string", fR"string", B"string", rF"string", ] 
+
+a = (a := 100) & a - a + a << a >> a * a ** a // a % a < a > a <= a >= a | a
+assert a==a 
+a != a,
+a %= 0b1
+a &= a
+a **= 0o1
+a *= 3.0
+a += a
+a -= a
+a //= 0x1
+a >>= a
+a <<= a
+a |= a+0j
+a /= 10e10
+a = "str"
+
+if __name__ == "__main__":
+	print("Execed!")
+
+	# RuntimeWarning, # BytesWarning, # DeprecationWarning, # FutureWarning, # ImportWarning, # PendingDeprecationWarning, # ResourceWarning, # RuntimeWarning, # SyntaxWarning, # UnicodeWarning, # UserWarning, # Warning, # SystemExit , NotImplemented,) as e:
 
 """
 
