@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
 from random import randint
+import asyncio
+
 try:
 	errors=[SyntaxError, ArithmeticError, AssertionError, AttributeError, BlockingIOError, BrokenPipeError, BufferError, ChildProcessError, ConnectionAbortedError, ConnectionAbortedError, ConnectionError, ConnectionRefusedError, ConnectionResetError, EnvironmentError, EOFError, Exception, FileExistsError, FileNotFoundError, FloatingPointError, ImportError, IndentationError, IndexError, InterruptedError, IOError, IsADirectoryError, KeyError, LookupError, MemoryError, ModuleNotFoundError, NameError, NotADirectoryError, NotImplementedError, OSError, OverflowError, PermissionError, ProcessLookupError, RecursionError, ReferenceError, RuntimeError, SystemError, TabError, TimeoutError, TypeError, UnboundLocalError, UnicodeDecodeError, UnicodeEncodeError, UnicodeError, UnicodeTranslateError, ValueError, ZeroDivisionError, KeyboardInterrupt]
 	raise errors[randint(0,len(errors))]
@@ -8,21 +10,49 @@ except Exception as e:
 
 string_prefixes = [Rb'', br"""""", Fr'''''', f"", U"", b"", rB"", BR"", bR"", fr"", r"", RB"", RF"", R"", FR"", Rf"", u"", rb"", F"", Br"", rf"", fR"", B"", rF"", ] 
 
-a = (a := 100) & a - a + a << a >> a * a ** a // a % a < a > a <= a >= a | a
-assert a==a 
+a = (a := 100) & a - a ^ a + a << a >> a * a ** a // a % a < a > a <= a >= a | a
 a != a,
 a %= 0b1
-a &= a
+a &= int(bin(a),2)
 a **= 0o1
 a *= a
 a |= a
 a //= 0x1
 a >>= a
 a <<= a
-a /= 10e10
+a ^= a
+a /= float(10e1)
 a += 0.0
 a -= a+0j
-a = divmod(a.real,2345678) + tuple([])
+a = any([all(divmod(abs(a),2345678) + tuple(list()+[]))])
+assert a == a or a and bool(a)
+
+while True:
+	with open('/dev/null','w') as f:
+		f.write(str(bytes(bytearray(ascii(chr(a)), 'utf-8')).decode("utf-8").encode("utf-8")))
+	break
+	continue
+
+callable(breakpoint)
+
+class A():
+	_a=0
+	def __init__(self):
+		_a=asyncio.run(f2())
+
+	async def f():
+		print("async")
+
+	async def f2():
+		await f()
+
+	@property
+	def a(self):
+		return _a
+		
+	
+
+bytearray
 
 if __name__ == "__main__":
 	print("Execed!")
@@ -106,9 +136,6 @@ UnicodeError
 UnicodeTranslateError
 ValueError
 ZeroDivisionError
-[]
-^
-^=
 __annotations__
 __build_class__
 __builtins__
@@ -121,24 +148,6 @@ __loader__
 __name__
 __package__
 __spec__
-abs
-all
-and
-any
-as
-ascii
-assert
-async
-await
-bin
-bool
-break
-breakpoint
-bytearray
-bytes
-callable
-chr
-class
 classmethod
 compile
 complex
