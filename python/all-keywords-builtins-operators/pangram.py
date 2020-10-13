@@ -3,19 +3,23 @@ from random import randint
 import asyncio
 
 try:
-	errors=[SyntaxError, ArithmeticError, AssertionError, AttributeError, BlockingIOError, BrokenPipeError, BufferError, ChildProcessError, ConnectionAbortedError, ConnectionAbortedError, ConnectionError, ConnectionRefusedError, ConnectionResetError, EnvironmentError, EOFError, Exception, FileExistsError, FileNotFoundError, FloatingPointError, ImportError, IndentationError, IndexError, InterruptedError, IOError, IsADirectoryError, KeyError, LookupError, MemoryError, ModuleNotFoundError, NameError, NotADirectoryError, NotImplementedError, OSError, OverflowError, PermissionError, ProcessLookupError, RecursionError, ReferenceError, RuntimeError, SystemError, TabError, TimeoutError, TypeError, UnboundLocalError, UnicodeDecodeError, UnicodeEncodeError, UnicodeError, UnicodeTranslateError, ValueError, ZeroDivisionError, KeyboardInterrupt]
+	errors=[[ BaseException, SystemExit, KeyboardInterrupt, GeneratorExit, Exception, StopIteration, StopAsyncIteration, ArithmeticError, FloatingPointError, OverflowError, ZeroDivisionError, AssertionError, AttributeError, BufferError, EOFError, ImportError, ModuleNotFoundError, LookupError, IndexError, KeyError, MemoryError, NameError, UnboundLocalError, OSError, BlockingIOError, ChildProcessError, ConnectionError, BrokenPipeError, ConnectionAbortedError, ConnectionRefusedError, ConnectionResetError, FileExistsError, FileNotFoundError, InterruptedError, IsADirectoryError, NotADirectoryError, PermissionError, ProcessLookupError, TimeoutError, ReferenceError, RuntimeError, NotImplementedError, RecursionError, SyntaxError, IndentationError, TabError, SystemError, TypeError, ValueError, UnicodeError, UnicodeDecodeError, UnicodeEncodeError, UnicodeTranslateError, Warning, DeprecationWarning, PendingDeprecationWarning, RuntimeWarning, SyntaxWarning, UserWarning, FutureWarning, ImportWarning, UnicodeWarning, BytesWarning, ResourceWarning ]]
 	raise errors[randint(0,len(errors))]
 except Exception as e:
-	print(e)
+	pass
+finally:
+	pass
 
-string_prefixes = [Rb'', br"""""", Fr'''''', f"", U"", b"", rB"", BR"", bR"", fr"", r"", RB"", RF"", R"", FR"", Rf"", u"", rb"", F"", Br"", rf"", fR"", B"", rF"", ] 
+string_prefixes = [Rb'', br"""""", Fr'''''', f"{hex(3)}", U"", b"", rB"", BR"", bR"", fr"", r"", RB"", RF"", R"", FR"", Rf"", u"", rb"", F"", Br"", rf"{oct(4)}", fR"", B"", rF"", ] 
+
+dunders = [__name__, __debug__, __loader__, __doc__, __import__, __build_class__, __package__, __spec__]
 
 a = (a := 100) & a - a ^ a + a << a >> a * a ** a // a % a < a > a <= a >= a | a
-a != a,
+a != a
 a %= 0b1
 a &= int(bin(a),2)
 a **= 0o1
-a *= a
+a *= min(a,max(a, 10))
 a |= a
 a //= 0x1
 a >>= a
@@ -24,40 +28,89 @@ a ^= a
 a /= float(10e1)
 a += 0.0
 a -= a+0j
-a = any([all(divmod(abs(a),2345678) + tuple(list()+[]))])
-assert a == a or a and bool(a)
+a, = [any((divmod(abs(a),2345678) + tuple(list()+[])))]
+
+assert a == a 
+
+if a or a:
+	a
+elif bool(a) and ... ==  Ellipsis or False or True:
+	a
+else:
+	a
 
 while True:
 	with open('/dev/null','w') as f:
-		f.write(str(bytes(bytearray(ascii(chr(a)), 'utf-8')).decode("utf-8").encode("utf-8")))
+		f.write(str(bytes(bytearray(ascii(ord(chr(a))), 'utf-8')).decode("utf-8").encode("utf-8")))
 	break
 	continue
 
-callable(breakpoint)
+a = filter(all, map(callable,[breakpoint, license, credits, exit, help, input]))
+a=dict()
 
-class A():
+for i,v in enumerate([ x for x in range(3)]):
+	a[i]=v
+
+a=frozenset(set(a))
+memoryview(bytes(a))
+a=repr(type(sum(a)))
+a = (sorted(zip(locals().items(), globals().items())))[slice(1,4)]
+eval("a")
+exec("a")
+
+
+
+def gen():
+	global dunders
+	for i in range(10):
+		yield a
+
+a=next(iter(list(gen())))
+	     
+
+class A(object):
 	_a=0
 	def __init__(self):
-		_a=asyncio.run(f2())
+		_a=asyncio.run(self.f2())
+		super()
 
-	async def f():
+	@classmethod
+	def fromlist(cls, l):
+	  x = cls()
+	  x = ','.join(str(s) for s in l)
+	  return x
+
+	async def f1(self):
+		return 3
 		print("async")
 
-	async def f2():
-		await f()
+	async def f2(self):
+		await self.f1()
 
 	@property
 	def a(self):
-		return _a
-		
-	
+		return self._a
 
-bytearray
+	@staticmethod
+	def f():
+		return "static"
+
+	def __matmul__(a,b):
+		a._a *= -b._a
+		return a
+
+a=A()
+a @= a @ a
+setattr(a, "b", a.f())
+getattr(a, "b", 0)
+hasattr(a, "b")
+delattr(a, "b")
+a=a.fromlist(['a'])
 
 if __name__ == "__main__":
 	print("Execed!")
 
-	# RuntimeWarning, # BytesWarning, # DeprecationWarning, # FutureWarning, # ImportWarning, # PendingDeprecationWarning, # ResourceWarning, # RuntimeWarning, # SyntaxWarning, # UnicodeWarning, # UserWarning, # Warning, # SystemExit , NotImplemented,) as e:
+
 
 """
 
