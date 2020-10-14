@@ -3,38 +3,45 @@ from random import randint
 import asyncio
 
 try:
-	errors=[[ BaseException, SystemExit, KeyboardInterrupt, GeneratorExit, Exception, StopIteration, StopAsyncIteration, ArithmeticError, FloatingPointError, OverflowError, ZeroDivisionError, AssertionError, AttributeError, BufferError, EOFError, ImportError, ModuleNotFoundError, LookupError, IndexError, KeyError, MemoryError, NameError, UnboundLocalError, OSError, BlockingIOError, ChildProcessError, ConnectionError, BrokenPipeError, ConnectionAbortedError, ConnectionRefusedError, ConnectionResetError, FileExistsError, FileNotFoundError, InterruptedError, IsADirectoryError, NotADirectoryError, PermissionError, ProcessLookupError, TimeoutError, ReferenceError, RuntimeError, NotImplementedError, RecursionError, SyntaxError, IndentationError, TabError, SystemError, TypeError, ValueError, UnicodeError, UnicodeDecodeError, UnicodeEncodeError, UnicodeTranslateError, Warning, DeprecationWarning, PendingDeprecationWarning, RuntimeWarning, SyntaxWarning, UserWarning, FutureWarning, ImportWarning, UnicodeWarning, BytesWarning, ResourceWarning ]]
+	errors=[[ BaseException, SystemExit, KeyboardInterrupt, GeneratorExit, Exception, StopIteration, StopAsyncIteration, ArithmeticError, FloatingPointError, OverflowError, ZeroDivisionError, AssertionError, AttributeError, BufferError, EOFError, ImportError, ModuleNotFoundError, LookupError, IndexError, KeyError, MemoryError, NameError, UnboundLocalError, OSError, BlockingIOError, ChildProcessError, ConnectionError, BrokenPipeError, ConnectionAbortedError, ConnectionRefusedError, ConnectionResetError, FileExistsError, FileNotFoundError, InterruptedError, IsADirectoryError, NotADirectoryError, PermissionError, ProcessLookupError, TimeoutError, ReferenceError, RuntimeError, NotImplementedError, RecursionError, SyntaxError, IndentationError, TabError, SystemError, TypeError, ValueError, UnicodeError, UnicodeDecodeError, UnicodeEncodeError, UnicodeTranslateError, Warning, DeprecationWarning, PendingDeprecationWarning, RuntimeWarning, SyntaxWarning, UserWarning, FutureWarning, EnvironmentError, ImportWarning, UnicodeWarning, BytesWarning, ResourceWarning ]]
 	raise errors[randint(0,len(errors))]
 except Exception as e:
 	pass
 finally:
 	pass
 
-string_prefixes = [Rb'', br"""""", Fr'''''', f"{hex(3)}", U"", b"", rB"", BR"", bR"", fr"", r"", RB"", RF"", R"", FR"", Rf"", u"", rb"", F"", Br"", rf"{oct(4)}", fR"", B"", rF"", ] 
+string_prefixes = [Rb'', br"""""", Fr'''''', f"{hex(3)}", U"", b"", rB"", BR"", bR"", fr"", r"", RB"", RF"", R"", FR"", Rf"", u"", rb"", F"", Br"", rf"{oct(4)}", fR"", B"", rF""] 
 
 dunders = [__name__, __debug__, __loader__, __doc__, __import__, __build_class__, __package__, __spec__]
 
 a = (a := 100) & a - a ^ a + a << a >> a * a ** a // a % a < a > a <= a >= a | a
-a != a
+a != a != a
 a %= 0b1
 a &= int(bin(a),2)
-a **= 0o1
+a **= pow(0o1,1)
 a *= min(a,max(a, 10))
 a |= a
 a //= 0x1
 a >>= a
 a <<= a
-a ^= a
+a ^= hash(a)
 a /= float(10e1)
-a += 0.0
-a -= a+0j
-a, = [any((divmod(abs(a),2345678) + tuple(list()+[])))]
+a += round(0.0)
+a -= complex(a+0j)
+a, = [any((divmod(abs(a),2345678) + tuple([])))]
+
 
 assert a == a 
 
 if a or a:
 	a
 elif bool(a) and ... ==  Ellipsis or False or True:
+	a
+elif a is not a:
+	a=~a
+elif issubclass(a,""):
+	a
+elif isinstance(a,""):
 	a
 else:
 	a
@@ -45,27 +52,30 @@ while True:
 	break
 	continue
 
-a = filter(all, map(callable,[breakpoint, license, credits, exit, help, input]))
-a=dict()
+a = filter(all, map(callable,[breakpoint, license, credits, copyright, exit, help, input, quit]))
 
-for i,v in enumerate([ x for x in range(3)]):
-	a[i]=v
-
+a=dict({ k:i for i,k in enumerate(dir(a)+[None])})
 a=frozenset(set(a))
-memoryview(bytes(a))
+a=memoryview(bytes(str(a), 'utf-8'))
 a=repr(type(sum(a)))
 a = (sorted(zip(locals().items(), globals().items())))[slice(1,4)]
-eval("a")
+
+eval(compile("a=3", "<string>", "exec"))
 exec("a")
+a=format(a,"")
 
 
 
-def gen():
+def f_factory():
 	global dunders
-	for i in range(10):
-		yield a
+	f=dunders[1:]
+	def f2():
+		nonlocal f
+		for i in range(len(f)):
+			yield id(f[i])
+	return f2
 
-a=next(iter(list(gen())))
+a=next(iter(reversed(list((lambda x: x()())(f_factory)))))
 	     
 
 class A(object):
@@ -75,7 +85,7 @@ class A(object):
 		super()
 
 	@classmethod
-	def fromlist(cls, l):
+	def fromlist(cls, l: list) -> list:
 	  x = cls()
 	  x = ','.join(str(s) for s in l)
 	  return x
@@ -101,200 +111,13 @@ class A(object):
 
 a=A()
 a @= a @ a
-setattr(a, "b", a.f())
+setattr(a, "__dict__", {a:a})
+b=vars(a)
 getattr(a, "b", 0)
 hasattr(a, "b")
-delattr(a, "b")
+delattr(a, "__dict__"), 0
 a=a.fromlist(['a'])
+
 
 if __name__ == "__main__":
 	print("Execed!")
-
-
-
-"""
-
-
-
-
-
-
-
-
-
-
-
-
-
-@
-@=
-ArithmeticError
-AssertionError
-AttributeError
-BaseException
-BlockingIOError
-BrokenPipeError
-BufferError
-ChildProcessError
-ConnectionAbortedError
-ConnectionError
-ConnectionRefusedError
-ConnectionResetError
-EOFError
-Ellipsis
-EnvironmentError
-Exception
-False
-FileExistsError
-FileNotFoundError
-FloatingPointError
-GeneratorExit
-IOError
-ImportError
-IndentationError
-IndexError
-InterruptedError
-IsADirectoryError
-KeyError
-KeyboardInterrupt
-LookupError
-MemoryError
-ModuleNotFoundError
-NameError
-None
-NotADirectoryError
-NotImplemented
-NotImplementedError
-OSError
-OverflowError
-PANGRAM_FILE
-PermissionError
-ProcessLookupError
-RecursionError
-ReferenceError
-RuntimeError
-StopAsyncIteration
-StopIteration
-SyntaxError
-SystemError
-SystemExit
-TabError
-TimeoutError
-True
-TypeError
-UnboundLocalError
-UnicodeDecodeError
-UnicodeEncodeError
-UnicodeError
-UnicodeTranslateError
-ValueError
-ZeroDivisionError
-__annotations__
-__build_class__
-__builtins__
-__cached__
-__debug__
-__doc__
-__file__
-__import__
-__loader__
-__name__
-__package__
-__spec__
-classmethod
-compile
-complex
-continue
-copyright
-credits
-def
-del
-delattr
-dict
-dir
-divmod
-elif
-else
-enumerate
-eval
-except
-exec
-exit
-filter
-finally
-float
-for
-format
-from
-frozenset
-g
-getattr
-global
-globals
-hasattr
-hash
-help
-hex
-id
-if
-import
-in
-input
-int
-is
-isinstance
-issubclass
-iter
-keyword
-lambda
-len
-license
-list
-locals
-map
-max
-memoryview
-min
-next
-nonlocal
-not
-object
-oct
-open
-operator
-or
-ord
-pass
-pow
-print
-property
-python_lexemes
-quit
-raise
-range
-re
-repr
-return
-reversed
-round
-set
-setattr
-slice
-sorted
-staticmethod
-str
-sum
-super
-try
-tuple
-type
-unittest
-vars
-while
-with
-yield
-zip
-|
-|=
-~
-"""
