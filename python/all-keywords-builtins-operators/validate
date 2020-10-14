@@ -4,7 +4,7 @@ import keyword
 import operator
 import re
 import tokenize
-from io import StringIO  # Python 3
+from io import StringIO
 
 
 PANGRAM_FILE="pangram.py"
@@ -12,7 +12,7 @@ PANGRAM_FILE="pangram.py"
 
 ####################################################################################################
 
-# Being constructing a list of all unique and valid Python source lexemes in string form
+# Begin constructing a list of all unique and valid Python source lexemes in string form
 
 python_lexemes = set()
 
@@ -44,26 +44,14 @@ python_lexemes.add('"')
 python_lexemes.add('"""') 
 
 
-# Also satisfy all tokenizer cases (this will capture things like hex-numbers, bin-numbers, 
+# Also satisfy all tokenizer regex cases (this will capture things like hex-numbers, bin-numbers, 
 # and string prefixes like f,b,r, etc.)
 from token import tok_name
 CamelCaseRegex = re.compile(r'[A-Z][a-z]+[A-Z]*[a-z]*')
 
 tokenize_dir = " ".join(dir(tokenize))
 
-token_regex_strings = { t : getattr(tokenize, t) for t in CamelCaseRegex.findall(tokenize_dir) if isinstance(getattr(tokenize, t),str) }
-
-# token_types =  set(tok_name.values())
-
-# pangram_tokens = set()
-# with open(PANGRAM_FILE, 'r') as pf:
-# 	lines = " ".join([ str(l.strip()) for l in pf.readlines() ])
-# 	lines = StringIO(lines)
-# 	# for token in tokenize.generate_tokens(pf.readline):
-# 	for token in tokenize.tokenize(lines.readlines):
-# 	# for token in tokenize.tokenize(lambda : next(token_gen)):
-# 		pangram_tokens.add(tok_name[token.type] )
-# 		print(token)
+token_regex_strings = { t : rg for t in CamelCaseRegex.findall(tokenize_dir) if isinstance((rg:=getattr(tokenize, t)),str) }
 
 ####################################################################################################
 
