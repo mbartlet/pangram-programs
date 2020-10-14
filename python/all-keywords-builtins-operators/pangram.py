@@ -117,7 +117,3 @@ getattr(a, "b", 0)
 hasattr(a, "b")
 delattr(a, "__dict__"), 0
 a=a.fromlist(['a'])
-
-
-if __name__ == "__main__":
-	print("Execed!")
