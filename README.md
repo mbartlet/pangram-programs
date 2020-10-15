@@ -14,4 +14,6 @@ For the practically inclined, think of codes here as a demonstrative cheatsheet.
 
 The only requirement is that some aspect of the language the code should be executed with is comprehensively represented.
 
-For an example, please see [my python sample.](python/all-keywords-builtins-operators/README.md)
+For more thorough definitions and guidance, please see [CONTRIBUTING.md](CONTRIBUTING.md)
+
+For an example, please see [my python sample.](python/all-keywords-builtins-operators/)
