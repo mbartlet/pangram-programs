@@ -1,10 +1,10 @@
 # Contributing
 
-## Definition and Requirements of a Valid "Pangram Program"
+### Definition and Requirements of a Valid "Pangram Program"
 <center><sub> <i>for the purposes of this repository.</i> </sub></center>
 
 
-In short, an ideal pangram program should strive to exhaustively implement, instantiate, invoke, or however otherwise expose as valid source code (**comments don't count!**) that gets parsed by an interpretter and/or compiler for a given programming language the following features of said language:
+In short, an ideal pangram program should strive to exhaustively implement, instantiate, invoke, or however otherwise expose as valid source code (**commented or plain string content doesn't count!**) that gets parsed by an interpretter and/or compiler for a given programming language the following features of said language:
 * Reserved and/or key words that cannot be used for variable or subroutine names (commonly words like `if`, `else`, `return`, etc.)
 * Objects of all class-types (if the language is typed) implemented in the **standard libraries** of a given language (that is, the libraries that come out of box with a default installation)
   * This includes making calls to each public method and referencing all public variables of each distinctly-classed object.
@@ -15,7 +15,7 @@ In short, an ideal pangram program should strive to exhaustively implement, inst
   * For functional languages, an example of each term in the lexicon of functional programming jargon
 
 
-Notice I said "ideal" above, as this is a tall order to implement in some languages. The rule of thumb is, if you make a reasonable effort and represent the decent majority of a language's features then it will suffice&mdash;this is intended to more fun than it is rigorous :)
+Notice I said "ideal" above, as this is a tall order to implement in some languages. The rule of thumb is, if you make a reasonable effort and represent the decent majority of a language's features then it will suffice&mdash;this is intended to be more fun than it is rigorous :)
 
 >**Note**: it is perfectly valid if your pangram program itself is generated programmtically, just please include the generator code and an invokation of it in the validation executabutable explained below.
 
@@ -50,7 +50,7 @@ In order for a pangram module to be deemed valid in this repository, it should m
 
 * `<language-root-directory>/<pangram-directory>`
 
-    This is where the magic happens. Please name this as descriptively but succinctly as reasonably possible. For example, my Python sample is **TO-DO**
+    This is where the magic happens. Please name this as descriptively but succinctly as reasonably possible. For example, my Python sample is [`/python/all-keywords-builtins-operators`](/python/all-keywords-builtins-operators/README.md)
   
 * `<language-root-directory>/<pangram-directory>/README.md`
 

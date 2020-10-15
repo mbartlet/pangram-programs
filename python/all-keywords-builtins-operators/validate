@@ -38,7 +38,7 @@ for name, val in operator.__dict__.items():
 			pass
 
 # Symbols not in operator module :)
-python_lexemes.add(":=") 
+python_lexemes.add(":=")
 python_lexemes.add("'") 
 python_lexemes.add('"') 
 python_lexemes.add('"""') 
@@ -57,25 +57,23 @@ token_regex_strings = { t : rg for t in CamelCaseRegex.findall(tokenize_dir) if 
 
 # Get the lexemes from the file for evaluation of exhaustiveness
 
-pangram_lexemes = set()
-
-# quote_string_regex = re.compile(r"\"(\"\")?[^\"\{\}\n]*(\"\")?\"")
-# apostrophe_string_regex = re.compile(r"'('')?[^'\{\}\n]*('')?'", flags=re.MULTILINE)
-
 with open(PANGRAM_FILE, 'r') as pf:
 	pangram_raw_body = pf.read()
 
 pangram_body = pangram_raw_body
+
 # Contents of strings do not count towards the goal :)
-# pangram_body = quote_string_regex.sub('""', pangram_body)
-# pangram_body = apostrophe_string_regex.sub("''", pangram_body)
+apostrophe_3_regular_string_regex = re.compile(r"(?<!\w)'''[^'\n]+'''")
+quote_3_regular_string_regex = re.compile(r'(?<!\w)"""[^"\n]+"""')
 
+apostrophe_regular_string_regex = re.compile(r"(?<!\w)'[^'\n]+'")
+quote_regular_string_regex = re.compile(r'(?<!\w)"[^"\n]+"')
 
-for line in pangram_body.split():
-	l = line.strip().partition('#')[0] # drop anything after a "#", i.e. ignore comments
-	l = l.split()
-	for t in l:
-		pangram_lexemes.add(t)
+pangram_body = quote_3_regular_string_regex.sub('""', pangram_body)
+pangram_body = apostrophe_3_regular_string_regex.sub('""', pangram_body)
+
+pangram_body = quote_regular_string_regex.sub('""', pangram_body)
+pangram_body = apostrophe_regular_string_regex.sub('""', pangram_body)
 
 
 
@@ -114,10 +112,6 @@ def capture_descriptor_output(f):
 class TestPangramAuthenticity(unittest.TestCase):
 	
 	
-	def assertSetComplete(self, truth, sample):
-		self.assertSetEqual(truth, truth.intersection(sample))
-
-
 	@capture_descriptor_output
 	def test_pangram_runs_successfully(self): 
 		global pangram_body
@@ -140,38 +134,62 @@ class TestPangramAuthenticity(unittest.TestCase):
 			tracer.results().write_results(show_missing=True, summary=False, coverdir=os.devnull)
 
 		except Exception:
-				self.fail("Pangram did not successfully execute")
+				self.fail("\n\n\t\tPangram did not successfully execute")
 
 
+	@capture_descriptor_output
 	def test_pangram_has_all_python_lexemes(self):
 		global pangram_body
 		global python_lexemes
-		# self.assertSetComplete(python_lexemes, pangram_lexemes)
 		for l in python_lexemes:
-			self.assertIn(l, pangram_body)
+			self.assertIn(l, pangram_body, msg=f"\n\n\t\t'{l}' not present in {PANGRAM_FILE}.")
 
 
+	@capture_descriptor_output
 	def test_token_regex_machines_all_find_matches(self):
 		global token_regex_strings
 		global pangram_body
 		for regex_name, regex in token_regex_strings.items():
-			self.assertRegex(pangram_body, regex, msg=f"\n\t{regex_name}::::{regex} did not produce a match.")
+			self.assertRegex(pangram_body, regex, msg=f"\n\n\t\tRegex '{regex_name}' := /{regex}/ did not produce a match.")
 
 
-	# def test_all_tokens_are_parsed_at_least_once(self):
-	# 	global pangram_tokens
-	# 	global token_types
-	# 	self.assertSetComplete(token_types, pangram_tokens)
-
-
-
-tests = ['assertAlmostEqual', 'assertAlmostEquals', 'assertCountEqual', 'assertDictContainsSubset', 'assertDictEqual', 'assertEqual', 'assertEquals', 'assertFalse', 'assertGreater', 'assertGreaterEqual', 'assertIn', 'assertIs', 'assertIsInstance', 'assertIsNone', 'assertIsNot', 'assertIsNotNone', 'assertLess', 'assertLessEqual', 'assertListEqual', 'assertLogs', 'assertMultiLineEqual', 'assertNotAlmostEqual', 'assertNotAlmostEquals', 'assertNotEqual', 'assertNotEquals', 'assertNotIn', 'assertNotIsInstance', 'assertNotRegex', 'assertNotRegexpMatches', 'assertRaises', 'assertRaisesRegex', 'assertRaisesRegexp', 'assertRegex', 'assertRegexpMatches', 'assertSequenceEqual', 'assertSetComplete', 'assertSetEqual', 'assertTrue', 'assertTupleEqual', 'assertWarns', 'assertWarnsRegex', 'assert_']
-
+@capture_descriptor_output
+def run_tests():
+	unittest.main(exit=False)
 
 #TO-DO: add colors
 if __name__ == '__main__':
-	unittest.main(exit=False)
-	for k,v in stderr_streams.items():
-		print(f"{k} = {v}")
-	for k,v in stdout_streams.items():
-		print(f"{k} = {v}")
+	run_tests()
+
+	def colorize(s: str, r: str, c: int) -> str:
+		return s.replace(r, f'\033[3{c}m{r}\033[0m')
+
+	# line_trace_regex = re.compile( rf"({PANGRAM_FILE}\(\d+\):)" )
+	summary, linebreak, results = stderr_streams['run_tests'].split("\n",2)
+
+	summary = colorize(summary, '.', 2)
+	summary = colorize(summary, 'F', 1)
+
+
+	if results.startswith("FAIL"):
+		
+		result_lines=re.compile(r"\n[=\-]+\n").split(results)
+		for i in range(1,len(result_lines),2):
+			result_lines[i] = "\n------------------" + result_lines[i].split("\n\n\t\t")[-1] + "\n\n\n==================\n"
+
+
+		results = "".join(result_lines)
+
+		failure_colorize_regex = re.compile( r'(\=*\n?FAIL:) (.+)\n(-*)')
+		results = failure_colorize_regex.sub(r"\033[31m\1 \033[33m\2\n\033[31m\3\033[0m\n", "==================\n"+results)
+
+		print(summary+"\n\n")
+		print(results)
+	else:
+		
+		line_trace_regex = re.compile( rf"({PANGRAM_FILE}\(\d+\):)" )
+		stdout = line_trace_regex.sub(r"\033[34m\1\033[0m", stdout_streams['test_pangram_runs_successfully'])
+		stdout = stdout.replace("--- modulename:", "\033[33m--- modulename:\033[0m")
+		print(stdout)
+		print(summary+"\n")
+		print(colorize(results,"OK",2) )

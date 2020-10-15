@@ -54,7 +54,7 @@ while True:
 
 a = filter(all, map(callable,[breakpoint, license, credits, copyright, exit, help, input, quit]))
 
-a=dict({ k:i for i,k in enumerate(dir(a)+[None])})
+a=dict({ k:i for i,k in enumerate((["s" for s in dir(a)+[None]] )[3] )})
 a=frozenset(set(a))
 a=memoryview(bytes(str(a), 'utf-8'))
 a=repr(type(sum(a)))
@@ -116,4 +116,4 @@ b=vars(a)
 getattr(a, "b", 0)
 hasattr(a, "b")
 delattr(a, "__dict__"), 0
-a=a.fromlist(['a'])
+_=a.fromlist(['a'])

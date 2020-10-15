@@ -1,162 +1,51 @@
->>> for e in __builtins__.__dict__:
-...     print(e)
+# Python Pangram
+The pangram featured here exhaustively makes use of (i.e. interprets and executes, not just parses as a string) all valid python lexemes. This includes keywords/reserved words, builtins, and all unique tokens which are identified through regex while parsing. If there is a function, feature, or grammar you can think of having used in a valid Python program, that pattern should be present here (and if not, feel free to open a pull request correcting that).
+
+## Execution
+You can execute the pangram by running `python3 pangram.py`. It itself does not serve any practical use or do anything interesting. The `validate` program included here will execute the program for you, and print its execution trace. You may as well run that instead, it is at least more colorful.
+
+## Validation
+Simply run `python3 validate`; `validate` is programmed to (through a constant `PANGRAM_FILE` at the top) target `pangram.py` and parse the python code present within. It will scan this code to ensure all valid lexemes are represented at least once, and also execute the code to make sure it exits without raising any exceptions (a criterion I think is sufficient to indicate it is a "valid" python program).
+
+This script uses the standard test-suite library. As such, if any of the tests needed to qualify a script as a python pangram fail, you will see output similar to:
+
+```
+$ python3 validate  
+F..
+
+
+==================
+FAIL: test_pangram_has_all_python_lexemes (__main__.TestPangramAuthenticity)
+------------------
+'isinstance' not present in pangram.py.
+
+
+
+==================
+Ran 3 tests in 0.026s
+
+FAILED (failures=1)
+```
+
+Otherwise, if the program is deemed to have satisfied all criteria to be a pangram, you will see:
+
+```
+$ python3 validate  
+
+< more pangram execution trace >
+
+pangram.py(90): 	  x = ','.join(str(s) for s in l)
+pangram.py(91): 	  return x
+
 ...
 
-__name__
-__doc__
-__package__
-__loader__
-__spec__
-__build_class__
-__import__
-abs
-all
-any
-ascii
-bin
-callable
-chr
-compile
-delattr
-dir
-divmod
-eval
-exec
-format
-getattr
-globals
-hasattr
-hash
-hex
-id
-input
-isinstance
-issubclass
-iter
-len
-locals
-max
-min
-next
-oct
-ord
-pow
-print
-repr
-round
-setattr
-sorted
-sum
-vars
-None
-Ellipsis
-NotImplemented
-False
-True
-bool
-memoryview
-bytearray
-bytes
-classmethod
-complex
-dict
-enumerate
-filter
-float
-frozenset
-property
-int
-list
-map
-object
-range
-reversed
-set
-slice
-staticmethod
-str
-super
-tuple
-type
-zip
-__debug__
-BaseException
-Exception
-TypeError
-StopAsyncIteration
-StopIteration
-GeneratorExit
-SystemExit
-KeyboardInterrupt
-ImportError
-ModuleNotFoundError
-OSError
-EnvironmentError
-IOError
-WindowsError
-EOFError
-RuntimeError
-RecursionError
-NotImplementedError
-NameError
-UnboundLocalError
-AttributeError
-SyntaxError
-IndentationError
-TabError
-LookupError
-IndexError
-KeyError
-ValueError
-UnicodeError
-UnicodeEncodeError
-UnicodeDecodeError
-UnicodeTranslateError
-AssertionError
-ArithmeticError
-FloatingPointError
-OverflowError
-ZeroDivisionError
-SystemError
-ReferenceError
-BufferError
-MemoryError
-Warning
-UserWarning
-DeprecationWarning
-PendingDeprecationWarning
-SyntaxWarning
-RuntimeWarning
-FutureWarning
-ImportWarning
-UnicodeWarning
-BytesWarning
-ResourceWarning
-ConnectionError
-BlockingIOError
-ChildProcessError
-sdasd
-ConnectionAbortedError
-ConnectionResetError
-FileExistsError
-FileNotFoundError
-IsADirectoryError
-NotADirectoryError
-InterruptedError
-PermissionError
-ProcessLookupError
-TimeoutError
-open
-quit
-exit
-copyright
-credits
-license
-help
+Ran 3 tests in 0.025s
 
->>> import keyword
->>> print(keyword.kwlist)
-['False', 'None', 'True', 'and', 'as', 'assert', 'async', 'await', 'break', 'class', 'continue', 'def', 'del', 'elif', 'else', 'except', 'finally', 'for', 'from', 'global', 'if', 'import', 'in', 'is', 'lambda', 'nonlocal', 'not', 'or', 'pass', 'raise', 'return', 'try', 'while', 'with', 'yield']
+OK
 
-+ - * / % ** // = += -= *= /= %= //= **= &= |= ^= >>= <<= == != > < >= <= & | ^ ~ << >>
+```
 
+## Ideas for Expansion
+* A pangram which also makes use of all extra lexemes added by the python standard modules
+* Turn the pangram into a practical script
+* Quine pangram
