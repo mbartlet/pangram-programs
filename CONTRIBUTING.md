@@ -1,7 +1,6 @@
 # Contributing
 
-### Definition and Requirements of a Valid "Pangram Program"
-<center><sub> <i>for the purposes of this repository.</i> </sub></center>
+## Definition and Requirements of a Valid "Pangram Program" <sub><i>for the purposes of this repository.</i> </sub>
 
 
 In short, an ideal pangram program should strive to exhaustively implement, instantiate, invoke, or however otherwise expose as valid source code (**commented or plain string content doesn't count!**) that gets parsed by an interpretter and/or compiler for a given programming language the following features of said language:
