@@ -157,7 +157,6 @@ class TestPangramAuthenticity(unittest.TestCase):
 def run_tests():
 	unittest.main(exit=False)
 
-#TO-DO: add colors
 if __name__ == '__main__':
 	run_tests()
 
